@@ -22,6 +22,9 @@ const mensagemFormulario =
         "#mensagem-formulario"
     );
 
+const mensagemvazio = document.createElement("p")
+mensagemvazio.textContent = "Nenhuma tarefa cadastrada!"
+
 function validarTarefa(titulo, prioridade, data) {
 
     if (titulo === "") {
@@ -134,8 +137,8 @@ formulario.addEventListener(
 
 
         tarefas.push(novaTarefa);
-
         renderizar(tarefas);
+        tarefasContador(tarefas);
     }
 );
 
@@ -151,8 +154,29 @@ function gerarProximoId() {
         );
 
     return Math.max(...ids) + 1;
+};
+
+if(tarefas.length === 0) {
+
+    const lista = document.querySelector("#lista-tarefas");
+
+    artigo_1 = document.createElement("article");
+    artigo_1.append(mensagemvazio);
+    lista.append(artigo_1);
+
 }
 
+// atualiza resumo tarefas
+
+function tarefasContador(tarefas) {
+    let contador = 0;
+    contador = tarefas.length;
+
+    const resumo = document.querySelector("#resumo-tarefas");
+    resumo.textContent = `${contador} tarefas`;
+
+    return;
+}
 
 
 
