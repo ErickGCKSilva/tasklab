@@ -84,6 +84,10 @@ function renderizar(tarefas) {
             con.textContent = "Pendente";
         }
 
+        if(elemento.conluida) {
+            artigo.classList.add("tarefa-conluida")
+        }
+
         const btnConcluir = criarBotao("Concluir", "concluir", elemento.id);
         const btnEditar = criarBotao("Editar", "editar", elemento.id);
         const btnExcluir = criarBotao("Excluir", "excluir", elemento.id);
@@ -178,6 +182,30 @@ function tarefasContador(tarefas) {
     return;
 }
 
+//botao
 
+const lista = document.querySelector("#lista-tarefas");
 
+lista.addEventListener("click", event => {
 
+    // 1. sobe a partir do clique até achar um botão com data-acao
+    const botao = event.target.closest("[data-acao]");
+
+    // 2. clicou em outro lugar: ignora
+    if (!botao) {
+        return;
+    }
+
+    // 3. lê as duas etiquetas do botão
+    const acao = botao.dataset.acao;
+    const id = Number(botao.dataset.id);
+
+    // 4. acha a tarefa com esse id
+    const tarefa = tarefas.find(t => t.id === id);
+
+    // 5. decide pela ação
+    if (acao === "concluir") {
+        tarefa.concluida = !tarefa.concluida;
+        renderizar(tarefas);
+    }
+});
