@@ -81,13 +81,26 @@ function renderizar(tarefas) {
             con.textContent = "Pendente";
         }
 
-        artigo.append(idi, tit, desc, pri, dat, con);
+        const btnConcluir = criarBotao("Concluir", "concluir", elemento.id);
+        const btnEditar = criarBotao("Editar", "editar", elemento.id);
+        const btnExcluir = criarBotao("Excluir", "excluir", elemento.id);
+
+        artigo.append(idi, tit, desc, pri, dat, con, btnConcluir, btnEditar, btnExcluir);
         lista.append(artigo);
 
     });
 };
 
+function criarBotao(texto, acao, id) {
+    const botao = document.createElement("button");
+    
+    botao.textContent = texto;
+    botao.dataset.acao = acao;
+    botao.dataset.id = id;
 
+    return botao;
+
+}
 
 formulario.addEventListener(
     "submit",
